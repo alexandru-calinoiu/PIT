@@ -14,15 +14,19 @@ section {
     height: 100%;
 }
 
-section {
-    float: none;
+/* Round corners */
+
+.round {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
 }
 
 /* map */
 
 #map {
     position: absolute;
-    left:0;
+    left: 0;
     top: 0;
     right: 0;
     bottom: 0;
@@ -33,19 +37,17 @@ section {
 /* content */
 
 #content {
-    margin-top: 30px;
+    margin: 30px 5px 0;
     position: fixed;
     width: 100%;
     height: 15%;
     z-index: 100;
+    color: white;
 }
 
 #content_bg {
     width: 100%;
     height: 100%;
+    padding: 9px;
     background: url("../images/bg_images.png");
-}
-
-#content h1 {
-    color: white;
 }

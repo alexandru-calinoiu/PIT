@@ -1,7 +1,10 @@
 PIT::Application.routes.draw do
-  get "home/index"
 
-  root :to => "home#index"
+  resource :pages
+
+  match 'index', :to => 'pages#index'
+
+  root :to => "pages#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
