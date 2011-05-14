@@ -21,7 +21,7 @@ class Pit < ActiveRecord::Base
   attr_accessor :city, :street, :county, :country
   attr_accessible :latitude, :longitude, :user, :address
 
-  after_validation :reverse_geocode
+  after_validation :reverse_geocode, :update_country
 
   reverse_geocoded_by :latitude, :longitude do |pit, results|
     if geo = results.first
@@ -31,5 +31,12 @@ class Pit < ActiveRecord::Base
       pit.street = geo.street["stfull"]
       pit.address = geo.address
     end
+  end
+
+  private
+
+  def update_country
+    country = Country.find_by_name(self.country)
+    Country.create!(:name => self.country) if country.nil?
   end
 end

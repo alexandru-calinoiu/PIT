@@ -1,5 +1,15 @@
 require 'spec_helper'
 
 describe Pit do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  before :each do
+    @pit = Factory(:pit)
+  end
+
+  it "should insert a country if it does not already exists" do
+    @pit.country = "England"
+    lambda do
+      @pit.save
+    end.should change(Country, :count).by(1)
+  end
 end
