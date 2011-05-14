@@ -19,10 +19,11 @@ class PitsController < ApplicationController
   end
 
   def report
-    pit = Pit.new
-    pit.latitude = params[:latitude]
-    pit.longitude = params[:longitude]
-    pit.save
+    email = params[:email]
+    user = User.find_by_email(email) || User.create(:email => email)
+
+    Pit.create(:latitude => params[:latitude], :longitude => params[:longitude], :user => user) if user.valid?
+
     respond_to do |format|
       format.xml  { head :ok }
     end

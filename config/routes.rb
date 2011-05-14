@@ -2,7 +2,7 @@ PIT::Application.routes.draw do
   resource :pages
   resources :pits
 
-  post '/report', :to => 'pits#report'
+  post 'report', :to => 'pits#report'
 
   match 'index', :to => 'pages#index'
 
