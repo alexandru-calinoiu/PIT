@@ -17,8 +17,8 @@ class Pit < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude
 
   belongs_to :user
-  attr_accessor :city, :street, :county, :country
 
+  attr_accessor :city, :street, :county, :country
   attr_accessible :latitude, :longitude, :user, :address
 
   after_validation :reverse_geocode
