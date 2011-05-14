@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe Country do
+describe County do
 end

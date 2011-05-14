@@ -1,7 +1,7 @@
 # == Schema Information
-# Schema version: 20110514183313
+# Schema version: 20110514203958
 #
-# Table name: countries
+# Table name: counties
 #
 #  id         :integer         not null, primary key
 #  name       :string(255)
@@ -9,8 +9,13 @@
 #  updated_at :datetime
 #
 
-class Country < ActiveRecord::Base
+class County < ActiveRecord::Base
   validates_presence_of :name
 
-  has_many :counties
+  belongs_to :country
+  has_many :cities
 end
+
+
+
+

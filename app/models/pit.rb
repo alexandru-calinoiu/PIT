@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110514160117
+# Schema version: 20110514203958
 #
 # Table name: pits
 #
@@ -8,6 +8,7 @@
 #  longitude  :float
 #  created_at :datetime
 #  updated_at :datetime
+#  user_id    :integer
 #  address    :string(255)
 #
 
@@ -17,9 +18,10 @@ class Pit < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude
 
   belongs_to :user
+  belongs_to :street
 
   attr_accessor :city, :street, :county, :country
-  attr_accessible :latitude, :longitude, :user, :address
+  attr_accessible :latitude, :longitude, :user, :address, :street_id
 
   after_validation :reverse_geocode
   before_save :update_country
@@ -38,6 +40,25 @@ class Pit < ActiveRecord::Base
 
   def update_country
     country = Country.find_by_name(self.country)
-    Country.create!(:name => self.country) if country.nil?
+    country = Country.new(:name => self.country) if country.nil?
+
+    country.save
+
+    county = country.counties.first(:conditions => "name = '#{self.county}'")
+    county = country.counties.create(:name => self.county) if county.nil?
+
+    country.save
+
+    city = county.cities.first(:conditions => "name = '#{self.city}'")
+    city = county.cities.create(:name => self.city) if city.nil?
+
+    county.save
+
+    street = city.streets.first(:conditions => "name = '#{self.street}'")
+    street = city.streets.create(:name => self.street) if street.nil?
+
+    city.save
+
+    self.street_id = street.id
   end
 end
