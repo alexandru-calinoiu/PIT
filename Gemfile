@@ -15,7 +15,7 @@ end
 
 group :test do
   gem 'sqlite3'
-  gem 'rspec'
+  gem 'rspec', '2.6.0'
   gem 'spork'
 end
 
