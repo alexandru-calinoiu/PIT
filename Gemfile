@@ -8,6 +8,7 @@ gem 'rails', '3.0.6'
 gem 'sqlite3'
 gem 'annotate-models'
 gem 'rspec-rails'
+gem 'geocoder'
 
 group :development do
   gem 'rspec-rails'

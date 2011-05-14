@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110514125232
+# Schema version: 20110514160117
 #
 # Table name: pits
 #
@@ -8,6 +8,7 @@
 #  longitude  :float
 #  created_at :datetime
 #  updated_at :datetime
+#  address    :string(255)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
