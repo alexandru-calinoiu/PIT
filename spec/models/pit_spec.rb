@@ -1,15 +1,16 @@
 require 'spec_helper'
 
 describe Pit do
-
-  before :each do
-    @pit = Factory(:pit)
+  it "should insert a country if it does not already exists" do
+    lambda do
+      Factory(:pit)
+    end.should change(Country, :count).by(1)
   end
 
-  it "should insert a country if it does not already exists" do
-    @pit.country = "England"
+  it "should not insert a country if it does already exists" do
+    Factory(:country)
     lambda do
-      @pit.save
-    end.should change(Country, :count).by(1)
+      Factory(:pit)
+    end.should_not change(Country, :count)
   end
 end

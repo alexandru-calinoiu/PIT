@@ -1,11 +1,12 @@
 require "factory_girl_rails"
 
-Factory.define :pit do |user|
-  user.latitude     44
-  user.longitude    22
-  user.address      "str. Semaforului, nr. 23"
+Factory.define :pit do |pit|
+  pit.latitude     44.4201461
+  pit.longitude    26.0798653
+  pit.address      "str. Semaforului, nr. 23"
+  pit.country       "Romania"
 end
 
 Factory.define :country do |country|
-  country.name     "Romania"
+  country.name      "Romania"
 end

@@ -21,7 +21,8 @@ class Pit < ActiveRecord::Base
   attr_accessor :city, :street, :county, :country
   attr_accessible :latitude, :longitude, :user, :address
 
-  after_validation :reverse_geocode, :update_country
+  after_validation :reverse_geocode
+  before_save :update_country
 
   reverse_geocoded_by :latitude, :longitude do |pit, results|
     if geo = results.first
