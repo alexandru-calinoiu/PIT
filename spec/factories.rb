@@ -10,3 +10,7 @@ end
 Factory.define :country do |country|
   country.name      "Romania"
 end
+
+Factory.define :user do |user|
+  user.email "test@test.com"
+end
