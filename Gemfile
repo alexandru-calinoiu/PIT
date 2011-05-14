@@ -7,6 +7,7 @@ gem 'rails', '3.0.6'
 
 gem 'sqlite3'
 gem 'annotate-models'
+gem 'geocoder'
 
 # Use unicorn as the web server
 # gem 'unicorn'
