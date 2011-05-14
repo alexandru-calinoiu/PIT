@@ -11,5 +11,7 @@
 
 class User < ActiveRecord::Base
   attr_accessible :email, :pits
-    has_many :pits
+  has_many :pits
+
+  validates_presence_of :email
 end

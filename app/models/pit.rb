@@ -23,6 +23,8 @@ class Pit < ActiveRecord::Base
   attr_accessor :city, :street, :county, :country
   attr_accessible :latitude, :longitude, :user, :address, :street_id
 
+  validates_presence_of :latitude, :longitude
+
   after_validation :reverse_geocode
   before_save :update_country
 

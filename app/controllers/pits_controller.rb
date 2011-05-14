@@ -12,11 +12,10 @@ class PitsController < ApplicationController
 
   def report
     email = params[:email]
-    user = User.find_by_email email unless email.nil?
-    if user.nil? && !email.nil?
-      user = User.create :email => email
-    end
-    pit = Pit.create(:latitude => params[:latitude], :longitude => params[:longitude], :user => user) unless params[:longitude].nil? || params[:latitude].nil? || user.nil?
+    user = User.find_by_email(email) || User.create(:email => email)
+
+    Pit.create(:latitude => params[:latitude], :longitude => params[:longitude], :user => user) if user.valid?
+
     respond_to do |format|
       format.xml  { head :ok }
     end
