@@ -40,25 +40,30 @@ class Pit < ActiveRecord::Base
 
   def update_country
     country = Country.find_by_name(self.country)
-    country = Country.new(:name => self.country) if country.nil?
+    country = Country.create(:name => self.country) if country.nil?
 
-    country.save
+    if country.valid?
 
-    county = country.counties.first(:conditions => "name = '#{self.county}'")
-    county = country.counties.create(:name => self.county) if county.nil?
+      county = country.counties.first(:conditions => "name = '#{self.county}'")
+      county = country.counties.create(:name => self.county) if county.nil?
 
-    country.save
+      country.save
 
-    city = county.cities.first(:conditions => "name = '#{self.city}'")
-    city = county.cities.create(:name => self.city) if city.nil?
+      if county.valid?
+        city = county.cities.first(:conditions => "name = '#{self.city}'")
+        city = county.cities.create(:name => self.city) if city.nil?
 
-    county.save
+        county.save
 
-    street = city.streets.first(:conditions => "name = '#{self.street}'")
-    street = city.streets.create(:name => self.street) if street.nil?
+        if street.valid?
+          street = city.streets.first(:conditions => "name = '#{self.street}'")
+          street = city.streets.create(:name => self.street) if street.nil?
 
-    city.save
+          city.save
 
-    self.street_id = street.id
+          self.street_id = street.id
+        end
+      end
+    end
   end
 end
