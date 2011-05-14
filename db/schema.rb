@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110514185907) do
+ActiveRecord::Schema.define(:version => 20110514205232) do
+
+  create_table "counties", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "country_id"
+  end
+
+  add_index "counties", ["country_id"], :name => "index_counties_on_country_id"
 
   create_table "countries", :force => true do |t|
     t.string   "name"

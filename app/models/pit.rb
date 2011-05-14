@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110514160117
+# Schema version: 20110514203958
 #
 # Table name: pits
 #
@@ -8,6 +8,7 @@
 #  longitude  :float
 #  created_at :datetime
 #  updated_at :datetime
+#  user_id    :integer
 #  address    :string(255)
 #
 
@@ -38,6 +39,13 @@ class Pit < ActiveRecord::Base
 
   def update_country
     country = Country.find_by_name(self.country)
-    Country.create!(:name => self.country) if country.nil?
+    country = Country.new(:name => self.country) if country.nil?
+
+    country.save
+
+    county = country.counties.first(:conditions => "name = '#{self.county}'")
+    country.counties.create(:name => self.county) if county.nil?
+
+    country.save
   end
 end

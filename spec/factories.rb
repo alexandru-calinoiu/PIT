@@ -10,3 +10,8 @@ end
 Factory.define :country do |country|
   country.name      "Romania"
 end
+
+Factory.define :county do |county|
+  county.name       "Bucharest"
+  county.association    :country
+end
