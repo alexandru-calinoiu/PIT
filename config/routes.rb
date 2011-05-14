@@ -1,4 +1,6 @@
 PIT::Application.routes.draw do
+  resources :pits
+  post '/report', :to => 'pits#report'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

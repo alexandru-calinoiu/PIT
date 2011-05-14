@@ -1,0 +1,20 @@
+<h1>Listing pits</h1>
+
+<table>
+  <tr>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @pits.each do |pit| %>
+      <tr>
+        <td><%= pit.latitude %></td>
+        <td><%= pit.longitude %></td>
+      </tr>
+  <% end %>
+</table>
+
+<br/>
