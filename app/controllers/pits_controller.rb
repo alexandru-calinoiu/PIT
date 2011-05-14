@@ -2,12 +2,19 @@ class PitsController < ApplicationController
   # GET /pits
   # GET /pits.xml
   def index
-    @pits = Pit.all
+    if params["search"].nil?
+      @pits = Pit.all
+    else
+      @pits = Pit.find_all_by_latitude(params["search"])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @pits }
-      format.json  { render :json => @pits }
+      format.json{
+        data = {"Pits" => {"data" => @pits}}
+        render :json => data.to_json
+      }
     end
   end
 

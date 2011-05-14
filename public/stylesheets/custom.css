@@ -51,3 +51,7 @@ section {
     padding: 9px;
     background: url("../images/bg_images.png");
 }
+
+#ac-input {
+    width: 250px;
+}
