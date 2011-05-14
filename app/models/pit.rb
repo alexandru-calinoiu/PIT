@@ -11,5 +11,7 @@
 #
 
 class Pit < ActiveRecord::Base
+  attr_accessible :latitude, :longitude, :user
 
+  belongs_to :user
 end
