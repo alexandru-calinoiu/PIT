@@ -26,4 +26,30 @@ describe Pit do
       Factory(:pit)
     end.should_not change(County, :count)
   end
+
+  it "should insert city if it does not already exists" do
+    lambda do
+      Factory(:pit)
+    end.should change(City, :count).by(1)
+  end
+
+  it "should not insert city if it does not already exists" do
+    Factory(:city)
+    lambda do
+      Factory(:pit)
+    end.should_not change(City, :count)
+  end
+
+  it "should insert street if it does not already exists" do
+    lambda do
+      Factory(:pit)
+    end.should change(Street, :count).by(1)
+  end
+
+  it "should not insert street if it does already exists" do
+    Factory(:street)
+    lambda do
+      Factory(:pit)
+    end.should_not change(Street, :count)
+  end
 end

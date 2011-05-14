@@ -13,6 +13,7 @@ class County < ActiveRecord::Base
   validates_presence_of :name
 
   belongs_to :country
+  has_many :cities
 end
 
 

@@ -15,3 +15,13 @@ Factory.define :county do |county|
   county.name       "Bucharest"
   county.association    :country
 end
+
+Factory.define :city do |city|
+  city.name         "Bucharest"
+  city.association  :county
+end
+
+Factory.define :street do |street|
+  street.name         "Strada Gheorghieni"
+  street.association  :city
+end

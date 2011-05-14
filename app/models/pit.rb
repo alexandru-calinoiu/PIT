@@ -18,9 +18,10 @@ class Pit < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude
 
   belongs_to :user
+  belongs_to :street
 
   attr_accessor :city, :street, :county, :country
-  attr_accessible :latitude, :longitude, :user, :address
+  attr_accessible :latitude, :longitude, :user, :address, :street_id
 
   after_validation :reverse_geocode
   before_save :update_country
@@ -44,8 +45,20 @@ class Pit < ActiveRecord::Base
     country.save
 
     county = country.counties.first(:conditions => "name = '#{self.county}'")
-    country.counties.create(:name => self.county) if county.nil?
+    county = country.counties.create(:name => self.county) if county.nil?
 
     country.save
+
+    city = county.cities.first(:conditions => "name = '#{self.city}'")
+    city = county.cities.create(:name => self.city) if city.nil?
+
+    county.save
+
+    street = city.streets.first(:conditions => "name = '#{self.street}'")
+    street = city.streets.create(:name => self.street) if street.nil?
+
+    city.save
+
+    self.street_id = street.id
   end
 end
