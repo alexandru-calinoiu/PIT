@@ -1,0 +1,2 @@
+module PitsHelper
+end
