@@ -23,9 +23,6 @@
     <div id="content" class="round">
       <div id="content_bg" class="round">
         <%= yield %>
-        <div id="debug">
-          <%= debug(params) if Rails.env.development? %>
-        </div>
       </div>
     </div>
     <div id="map"></div>
@@ -41,8 +38,12 @@
         // Display the map centered on a geocoded location
         map.drawZoomAndCenter("<%= location %>", 3);
 
-        var currentGeoPoint = new YGeoPoint(44.4201461, 26.0798653);
-        map.addMarker(currentGeoPoint);
+        <% if !@pits.nil? %>
+        <% @pits.each do |pit|%>
+            var currentGeoPoint = new YGeoPoint(<%= pit.latitude %>, <%= pit.longitude %>);
+            map.addMarker(currentGeoPoint);
+        <% end %>
+        <% end %>
     </script>
     <script type="text/javascript">
         YUI().use("autocomplete", "node", "datasource-get", "autocomplete-highlighters", "datasource-io", "datasource-jsonschema", function (Y) {
