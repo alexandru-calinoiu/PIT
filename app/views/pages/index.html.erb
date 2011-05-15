@@ -5,9 +5,6 @@
       <%= session[:breadcrumb].gsub(";", " >> ") %>
     </div>
 <% end %>
-<div id="worst">
-  <%= link_to image_tag("bad-egg-icon.png", :border => 0), {:action => ("worst")}, :class => "my-link"%>
-</div>
 <%= form_tag 'index', :method => 'get' do %>
     <div id="search">
       <%= label_tag("Location: ") %>
