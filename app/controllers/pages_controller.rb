@@ -9,7 +9,7 @@ class PagesController < ApplicationController
       move_next
     else
       move_next if session[:depth] < 4
-      if search.type == City.type
+      if search.class.name == 'Street'
         @pits = search.pits
       end
 
