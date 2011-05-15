@@ -11,6 +11,7 @@ gem 'geocoder'
 
 group :development do
   gem 'rspec-rails'
+  gem 'faker', '0.9.5'
 end
 
 group :test do

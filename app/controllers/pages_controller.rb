@@ -9,7 +9,10 @@ class PagesController < ApplicationController
       move_next
     else
       move_next if session[:depth] < 4
-      @pits = search.pits
+      if search.type == City.type
+        @pits = search.pits
+      end
+
     end
 
     respond_to do |format|
@@ -32,7 +35,7 @@ class PagesController < ApplicationController
 
     city = @breadcrumb.split(";").last
 
-    @streets = City.find_by_name(city).streets.all.sort{|a, b| b.pits.count <=> a.pits.count}
+    @streets = City.find_by_name(city).streets.all.sort { |a, b| b.pits.count <=> a.pits.count }
     @pits = []
     @streets.each do |street|
       @pits = @pits + street.pits.all
