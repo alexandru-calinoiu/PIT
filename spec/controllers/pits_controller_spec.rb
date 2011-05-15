@@ -50,6 +50,17 @@ describe PitsController do
       end.should change(Pit, :count).by(0)
     end
   end
+
+  describe "POST from same user on same street" do
+    it "should not create a new pit" do
+      mock_pit = Factory.build(:pit)
+      Pit.stub(:new).and_return(mock_pit)
+      Pit.stub(:find_by_user_id_and_street_id).and_return(mock_pit)
+      lambda do
+        post :report, :latitude => 44.4201461, :longitude => 26.0798653, :email => "test@test.com"
+      end.should_not change(Pit, :count)
+    end
+  end
 end
 
 

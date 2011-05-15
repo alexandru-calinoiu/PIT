@@ -64,6 +64,11 @@ class Pit < ActiveRecord::Base
           city.save
 
           self.street_id = street.id
+
+          same_pit = Pit.find_by_user_id_and_street_id(self.user_id, self.street_id)
+          unless same_pit.nil?
+            return false
+          end
         end
       end
     end

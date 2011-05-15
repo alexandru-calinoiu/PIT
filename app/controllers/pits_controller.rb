@@ -22,7 +22,11 @@ class PitsController < ApplicationController
     email = params[:email]
     user = User.find_by_email(email) || User.create(:email => email)
 
-    Pit.create(:latitude => params[:latitude], :longitude => params[:longitude], :user => user) if user.valid?
+    new_pit = Pit.new(:latitude => params[:latitude], :longitude => params[:longitude], :user => user) if user.valid?
+
+    if !new_pit.nil? && new_pit.valid?
+      new_pit.save
+    end
 
     respond_to do |format|
       format.xml  { head :ok }
