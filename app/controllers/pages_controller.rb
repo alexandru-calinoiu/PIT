@@ -5,7 +5,13 @@ class PagesController < ApplicationController
     @breadcrumb = session[:breadcrumb] || ""
     @location = @breadcrumb unless @breadcrumb.empty?
 
-    move_next if @depth < 4
+    if @depth < 3
+      move_next
+    else
+      move_next if session[:depth] < 4
+      @pits = search.pits
+    end
+
 
     respond_to do |format|
       format.html
