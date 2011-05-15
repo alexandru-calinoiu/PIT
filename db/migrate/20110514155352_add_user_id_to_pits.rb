@@ -4,5 +4,6 @@ class AddUserIdToPits < ActiveRecord::Migration
   end
 
   def self.down
+
   end
 end
