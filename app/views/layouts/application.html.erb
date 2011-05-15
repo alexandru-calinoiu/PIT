@@ -30,6 +30,7 @@
     <script type="text/javascript">
         // Create a map object
         var map = new YMap(document.getElementById('map'));
+        map.disableKeyControls()
         // Add map type control
         map.addTypeControl();
         // Set map type to either of: YAHOO_MAP_SAT, YAHOO_MAP_HYB, YAHOO_MAP_REG
@@ -47,7 +48,7 @@
     </script>
     <script type="text/javascript">
         YUI().use("autocomplete", "node", "datasource-get", "autocomplete-highlighters", "datasource-io", "datasource-jsonschema", function (Y) {
-            var inputNode = Y.one('body').addClass('yui3-skin-sam');
+            Y.one('body').addClass('yui3-skin-sam');
             // Create a DataSource instance.
             var ds = new Y.DataSource.IO({
                 source: './locations.json'
@@ -62,7 +63,7 @@
 
             document.getElementById('search_term').focus();
 
-            Y.one('#search_term').plug(Y.Plugin.AutoComplete, {
+            var inputNode = Y.one('#search_term').plug(Y.Plugin.AutoComplete, {
                 maxResults: 10,
                 minQueryLength: 0,
                 resultHighlighter: 'wordMatch',
@@ -82,7 +83,7 @@
                         }
                     }
                     if (!found) {
-                        inputNode.ac.set('value', e.results[0]);
+                        inputNode.ac.set('value', e.results[0].display);
                     }
                 }
             });

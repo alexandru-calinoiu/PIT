@@ -5,7 +5,7 @@ class PagesController < ApplicationController
     @breadcrumb = session[:breadcrumb] || ""
     @location = @breadcrumb unless @breadcrumb.empty?
 
-    if session[:depth] < 3
+    if @depth < 3
       move_next
     else
       move_next if session[:depth] < 4
