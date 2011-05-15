@@ -66,6 +66,7 @@
             var inputNode = Y.one('#search_term').plug(Y.Plugin.AutoComplete, {
                 maxResults: 10,
                 minQueryLength: 0,
+                queryDelay: 700,
                 resultHighlighter: 'wordMatch',
                 source: ds,
                 resultTextLocator: function (result) {
@@ -83,8 +84,12 @@
                         }
                     }
                     if (!found) {
-                        inputNode.ac.set('value', e.results[0].display);
+                        inputNode.ac.set('value', e.results[0].text);
                     }
+                }
+                else
+                {
+                    inputNode.ac.set('value', '');
                 }
             });
         });
