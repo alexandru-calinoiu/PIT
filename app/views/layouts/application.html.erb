@@ -23,10 +23,13 @@
     <div id="content" class="round">
       <div id="content_bg" class="round">
         <%= yield %>
+        <div id="debug">
+          <%= debug(params) if Rails.env.development? %>
+        </div>
       </div>
     </div>
-
     <div id="map"></div>
+
     <script type="text/javascript">
         // Create a map object
         var map = new YMap(document.getElementById('map'));
@@ -37,30 +40,50 @@
 
         // Display the map centered on a geocoded location
         map.drawZoomAndCenter("<%= location %>", 3);
-    </script>
 
+        var currentGeoPoint = new YGeoPoint(44.4201461, 26.0798653);
+        map.addMarker(currentGeoPoint);
+    </script>
     <script type="text/javascript">
         YUI().use("autocomplete", "node", "datasource-get", "autocomplete-highlighters", "datasource-io", "datasource-jsonschema", function (Y) {
+            var inputNode = Y.one('body').addClass('yui3-skin-sam');
             // Create a DataSource instance.
             var ds = new Y.DataSource.IO({
-                source: 'http://localhost:3000/pits.json'
+                source: './locations.json'
             });
 
             ds.plug({fn: Y.Plugin.DataSourceJSONSchema, cfg: {
                 schema: {
-                    resultListLocator: "Pits.data",
-                    resultFields: ["pit.created_at", "pit.latitude", "pit.updated_at", "pit.id", "pit.longitude"]
+                    resultListLocator: "Results.data",
+                    resultFields: ["id", "name"]
                 }
             }});
 
-            Y.one('#ac-input').plug(Y.Plugin.AutoComplete, {
+            document.getElementById('search_term').focus();
+
+            Y.one('#search_term').plug(Y.Plugin.AutoComplete, {
                 maxResults: 10,
+                minQueryLength: 0,
                 resultHighlighter: 'wordMatch',
                 source: ds,
                 resultTextLocator: function (result) {
-                    return result["pit.latitude"].toString();
+                    return result["name"].toString();
                 },
                 requestTemplate: '?search={query}'
+            });
+
+            inputNode.ac.on('results', function (e) {
+                if (e.results.length) {
+                    var found = false;
+                    for (var r in e.results) {
+                        if (e.results[r] == inputNode.ac.get('value')) {
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        inputNode.ac.set('value', e.results[0]);
+                    }
+                }
             });
         });
     </script>

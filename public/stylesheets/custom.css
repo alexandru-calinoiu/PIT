@@ -52,6 +52,18 @@ section {
     background: url("../images/bg_images.png");
 }
 
+#debug {
+    color: black;
+    z-index:101;
+    float: right;
+}
+
+/* search */
+
 #ac-input {
     width: 250px;
+}
+
+#search {
+    color: black;
 }

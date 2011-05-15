@@ -1,8 +1,15 @@
-<%= form_tag  'index', :method => 'get' do %>
-    <p>
-        <div id="demo">
-          <label for="ac-input">Latitude:</label><br/>
-          <input id="ac-input" type="text"/>
-        </div>
-    </p>
+<% if session[:depth] != 0 %>
+    <div id="breadcrumbs">
+      <%= session[:depth] %>
+      <%= link_to("Clear", "clear") %>
+      <%= session[:breadcrumb].gsub(";", " >> ") %>
+    </div>
+<% end %>
+
+<%= form_tag 'index', :method => 'get' do %>
+    <div id="search">
+      <%= label_tag("Location: ") %>
+      <%= text_field_tag("search_term") %>
+      <%= submit_tag("Search") %>
+    </div>
 <% end %>

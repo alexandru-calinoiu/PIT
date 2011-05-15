@@ -5,6 +5,8 @@ PIT::Application.routes.draw do
   post 'report', :to => 'pits#report'
 
   match 'index', :to => 'pages#index'
+  match 'locations', :to => 'locations#index'
+  match 'clear', :to => 'pages#clear'
 
   root :to => "pages#index"
 
