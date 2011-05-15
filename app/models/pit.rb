@@ -41,6 +41,10 @@ class Pit < ActiveRecord::Base
   private
 
   def update_country
+    if self.country.nil? || self.county.nil? || self.city.nil? || self.street.nil? ||
+       self.country.empty? || self.county.empty? || self.city.empty? || self.street.empty?
+      return false
+    end
     country = Country.find_by_name(self.country)
     country = Country.create(:name => self.country) if country.nil?
 
