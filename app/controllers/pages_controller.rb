@@ -26,4 +26,12 @@ class PagesController < ApplicationController
     end
   end
 
+  def worst
+    go_to_worst_street
+
+    respond_to do |format|
+      format.html { redirect_to root_path }
+    end
+  end
+
 end
