@@ -8,6 +8,7 @@ PIT::Application.routes.draw do
   match 'locations', :to => 'locations#index'
   match 'clear', :to => 'pages#clear'
   match 'worst', :to => 'pages#worst'
+  match 'show_all', :to => 'pages#show_all'
 
   root :to => "pages#index"
 

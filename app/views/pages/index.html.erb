@@ -1,4 +1,4 @@
-<% if session[:depth] != 0 %>
+<% if @depth != 0 %>
     <div id="breadcrumbs">
       <%= session[:depth] %>
       <%= link_to("Clear", "clear") %>
@@ -10,5 +10,29 @@
       <%= label_tag("Location: ") %>
       <%= text_field_tag("search_term") %>
       <%= submit_tag("Search") %>
+
+      <% if @depth == 3 %>
+          <%= link_to("Show all", "show_all") %>
+      <% end %>
+    </div>
+<% end %>
+
+<% if !@streets.nil? %>
+    <div id="report" class="round">
+      <div id="report_bg" class="round">
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Potholes</th>
+          </tr>
+
+          <% @streets.each do |street| %>
+              <tr>
+                <td><%= street.name %></td>
+                <td><%= street.pits.count %></td>
+              </tr>
+          <% end %>
+        </table>
+      </div>
     </div>
 <% end %>

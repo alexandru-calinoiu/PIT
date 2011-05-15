@@ -37,7 +37,7 @@
         map.setMapType(YAHOO_MAP_REG);
 
         // Display the map centered on a geocoded location
-        map.drawZoomAndCenter("<%= location %>", 3);
+        map.drawZoomAndCenter("<%= location.gsub(";", ",") %>", 4);
 
         <% if !@pits.nil? %>
         <% @pits.each do |pit|%>

@@ -21,7 +21,7 @@ class Pit < ActiveRecord::Base
   belongs_to :street
 
   attr_accessor :city, :street, :county, :country
-  attr_accessible :latitude, :longitude, :user, :address, :street_id
+  attr_accessible :latitude, :longitude, :user, :address, :street_id, :user_id
 
   validates_presence_of :latitude, :longitude
 
