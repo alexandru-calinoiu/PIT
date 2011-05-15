@@ -8,10 +8,10 @@ gem 'rails', '3.0.6'
 gem 'sqlite3'
 gem 'annotate-models'
 gem 'geocoder'
+gem 'faker', '0.9.5'
 
 group :development do
   gem 'rspec-rails'
-  gem 'faker', '0.9.5'
 end
 
 group :test do
