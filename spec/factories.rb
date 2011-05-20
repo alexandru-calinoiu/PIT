@@ -16,12 +16,12 @@ Factory.define :user do |user|
 end
 
 Factory.define :county do |county|
-  county.name       "Bucharest"
+  county.name       "Bucuresti"
   county.association    :country
 end
 
 Factory.define :city do |city|
-  city.name         "Bucharest"
+  city.name         "Bucuresti"
   city.association  :county
 end
 

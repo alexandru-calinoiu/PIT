@@ -14,6 +14,14 @@
 
 require "geocoder"
 
+class AddressValidator < ActiveModel::Validator
+  def validate(record)
+    if (record.country.nil? || record.county.nil? || record.city.nil? || record.street.nil? || record.country.empty? || record.county.empty? || record.city.empty? || record.street.empty?)
+      record.errors[:base] << "Invalid location or location reverser does not now this lat/lon"
+    end
+  end
+end
+
 class Pit < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude
 
@@ -24,8 +32,9 @@ class Pit < ActiveRecord::Base
   attr_accessible :latitude, :longitude, :user, :address, :street_id, :user_id
 
   validates_presence_of :latitude, :longitude
+  validates_with AddressValidator
 
-  after_validation :reverse_geocode
+  before_validation :reverse_geocode
   before_save :update_country
 
   reverse_geocoded_by :latitude, :longitude do |pit, results|
@@ -42,10 +51,6 @@ class Pit < ActiveRecord::Base
   private
 
   def update_country
-    if self.country.nil? || self.county.nil? || self.city.nil? || self.street.nil? ||
-       self.country.empty? || self.county.empty? || self.city.empty? || self.street.empty?
-      return false
-    end
     country = Country.find_by_name(self.country)
     country = Country.create(:name => self.country) if country.nil?
 

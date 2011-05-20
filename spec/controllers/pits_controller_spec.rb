@@ -20,9 +20,18 @@ describe PitsController do
   end
 
   describe "POST with all params" do
+    before :each do
+      @user = Factory(:user)
+    end
+
+    it "should insert a new pit" do
+      lambda do
+        post :report, :latitude => 44.4201461, :longitude => 26.0798653, :email => @user.email
+      end.should change(Pit, :count).by(1)
+    end
+
     it "should add pit to a user" do
-      Factory(:user)
-      post :report, :latitude => 1, :longitude => 2, :email => "test@test.com"
+      post :report, :latitude => 44.4201461, :longitude => 26.0798653, :email => @user.email
       assert_equal(Pit.first.user_id, User.first.id)
     end
   end

@@ -52,4 +52,9 @@ describe Pit do
       Factory(:pit)
     end.should_not change(Street, :count)
   end
+
+  it "should not be valid for invalid latitude and longitude" do
+    pit = Pit.new(:latitude => 1, :longitude => 2)
+    pit.should_not be_valid
+  end
 end

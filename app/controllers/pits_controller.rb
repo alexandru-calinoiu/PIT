@@ -10,8 +10,8 @@ class PitsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @pits }
-      format.json{
+      format.xml { render :xml => @pits }
+      format.json {
         data = {"Pits" => {"data" => @pits}}
         render :json => data.to_json
       }
@@ -22,14 +22,12 @@ class PitsController < ApplicationController
     email = params[:email]
     user = User.find_by_email(email) || User.create(:email => email)
 
-    new_pit = Pit.new(:latitude => params[:latitude], :longitude => params[:longitude], :user => user) if user.valid?
-
-    if !new_pit.nil? && new_pit.valid?
-      new_pit.save
+    if user.valid?
+      Pit.create(:latitude => params[:latitude], :longitude => params[:longitude], :user => user)
     end
 
     respond_to do |format|
-      format.xml  { head :ok }
+      format.xml { head :ok }
     end
   end
 end
