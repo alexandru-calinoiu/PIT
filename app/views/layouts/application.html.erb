@@ -13,7 +13,6 @@
   <!--[if lt IE 8]><%= stylesheet_link_tag 'blueprint/ie' %><![endif]-->
   <%= csrf_meta_tag %>
 
-  <script type="text/javascript" src="http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=cPrzZnXV34E1Be7zGk9B8F.LZ4ZNi6lrz_uVWDxnkUrNLJ0bODvK3QcKGlhgzdh_cg--"></script>
   <link type="text/css" rel="stylesheet" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts-min.css"/>
   <script type="text/javascript" src="http://yui.yahooapis.com/3.3.0/build/yui/yui-min.js"></script>
 </head>
@@ -25,30 +24,11 @@
         <%= yield %>
       </div>
     </div>
-    <div id="map"></div>
+    <div id="map">
+      <%= raw Cartographer::Header.new.to_s %>
+      <%= raw @map.to_html %>
+    </div>
 
-    <script type="text/javascript">
-        // Create a map object
-        var map = new YMap(document.getElementById('map'));
-        map.disableKeyControls();
-        map.addZoomShort();
-        // Add map type control
-        map.addTypeControl();
-        // Set map type to either of: YAHOO_MAP_SAT, YAHOO_MAP_HYB, YAHOO_MAP_REG
-        map.setMapType(YAHOO_MAP_REG);
-
-        // Display the map centered on a geocoded location
-        map.drawZoomAndCenter("<%= location %>", 3);
-
-        <% if !@pits.nil? %>
-            var currentGeoPoint;
-            <% @pits.each do |pit|%>
-                currentGeoPoint = new YGeoPoint(<%= pit.latitude %>, <%= pit.longitude %>);
-                var marker = new YMarker(currentGeoPoint);
-                map.addOverlay(marker);
-            <% end %>
-        <% end %>
-    </script>
     <script type="text/javascript">
         YUI().use("autocomplete", "node", "datasource-get", "autocomplete-highlighters", "datasource-io", "datasource-jsonschema", function (Y) {
             Y.one('body').addClass('yui3-skin-sam');

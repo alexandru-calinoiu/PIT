@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'annotate-models'
 gem 'geocoder'
 gem 'faker', '0.9.5'
+gem 'json'
 
 group :development do
   gem 'rspec-rails'
