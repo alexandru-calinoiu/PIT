@@ -31,9 +31,10 @@ class Pit < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude do |pit, results|
     if geo = results.first
       pit.country = geo.country
-      pit.county = geo.county
+      pit.county = geo.state
+      route = geo.address_components_of_type(:route).first
+      pit.street = route['long_name'] if route != nil
       pit.city = geo.city
-      pit.street = geo.street["stfull"]
       pit.address = geo.address
     end
   end
